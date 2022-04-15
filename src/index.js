@@ -22,7 +22,7 @@ const inputValue = e => {
   createMarkup(textInput);
 };
 
-function createMarkup(country) {
+async function createMarkup(country) {
   fetchCountries(country)
     .then(data => {
       if (data.length > 10) {
@@ -37,10 +37,12 @@ function createMarkup(country) {
         countryInfo.innerHTML = markupInfo;
       }
     })
-    .catch(err => error());
+    .catch(error => errorFetch(error));
+
+  return;
 }
 
-function error() {
+function errorFetch(error) {
   Notiflix.Notify.failure('Oops, there is no country with that name');
   clearMarkup(countryInfo);
   clearMarkup(countryList);
